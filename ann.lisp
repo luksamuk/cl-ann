@@ -5,24 +5,39 @@
 ;; A connection specifies weights between neurons
 ;; of different layers
 (defstruct connection
+  "Represents a single connection between a neuron from layer A to
+another neuron to the next layer B."
   (weight       0.0 :type single-float) ;; bug?
   (delta-weight 0.0 :type single-float))
 
 ;; Representation for neuron data
 (defstruct neuron
+  "Represents a single neuron in a layer of the artificial neural
+network."
   index
   output-weights
   (output   0.0 :type single-float)
   (gradient 0.0 :type single-float))
 
 ;; Overall network training rate
-(defvar *neuron-eta* 0.15)
+(defvar *neuron-eta* 0.15
+  "Defines an overall network training rate.
+Value must be between 0.0 and 1.0, where 0.0
+is a slow learner, 0.2 is a medium learner,
+and 1.0 is a reckless learner. Defaults to
+0.15.")
 
 ;; Momentum; multiplier of the last weight change
-(defvar *neuron-alpha* 0.5)
+(defvar *neuron-alpha* 0.5
+  "Defines the weight-changing momentum for
+the inter-layer connections between neurons.
+Value must be between 0.0 and 1.0, where 0.0
+is no momentum, and 0.5 is moderate momentum.
+Defaults to 0.5.")
 
 ;; Represents an actual neural network.
 (defstruct ann
+  "Represents a whole artificial neural network, with its internal data."
   layers
   (error                  0.0 :type single-float)
   (recent-avg-error       0.0 :type single-float)

@@ -26,7 +26,9 @@
 ;;;    underestimate you with any weird encapsulation.
 
 ;;; Test networks
-(defparameter *xor-ann* nil)
+(defparameter *xor-ann* nil
+  "Single instantiation of a neural network for holding a neural network which
+learns to recognize the pattern of an exclusive-or binary operation.")
 
 ;;; Training cases
 (defparameter *xor-test-cases* nil)
