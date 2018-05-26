@@ -81,7 +81,7 @@ Defaults to 0.5.")
 			 (loop for num in topology collect (make-array (1+ num)))))
 	(outputs (mapcar #'1+ (append (cdr topology) '(0)))))
     ;; Iterate through layer
-    (loop for layer being the elements of net
+    (loop for layer across net
        for layer-size in topology
        for number-of-outputs in outputs
        ;; Create every neuron
@@ -116,7 +116,7 @@ Defaults to 0.5.")
   (setf (neuron-output neuron)
 	(transfer-function
 	 (reduce #'+
-		 (loop for prev-neuron being the elements of previous-layer
+		 (loop for prev-neuron across previous-layer
 		    collect (* (neuron-output prev-neuron)
 			       (connection-weight (aref (neuron-output-weights prev-neuron)
 							(neuron-index neuron)))))))))
@@ -130,13 +130,13 @@ of the neural network, minus the bias neuron."
 		(1- (length (get-ann-layer net 0)))))
     (error "Invalid number of input values for the ANN."))
   ;; Assign / latch the input values to the input neurons
-  (loop for neuron being the elements of (get-ann-layer net 0)
+  (loop for neuron across (get-ann-layer net 0)
      for input in input-values
      do (setf (neuron-output neuron) input))
   ;; Forward-propagate the values on each neuron
   (loop for layer-index from 1 below (get-ann-number-of-layers net)
        for previous-layer-index = (1- layer-index)
-     do (loop for neuron being the elements of (get-ann-layer net layer-index)
+     do (loop for neuron across (get-ann-layer net layer-index)
 	   do (feed-forward neuron (get-ann-layer net previous-layer-index)))))
 
 
@@ -157,7 +157,7 @@ of the neural network, minus the bias neuron."
   "Calculates the gradient of a neuron on a hidden layer."
   (let ((sum-of-layers-weighted-gradients
 	 (reduce #'+
-		 (loop for next-layer-neuron being the elements of next-layer
+		 (loop for next-layer-neuron across next-layer
 		    for index from 0 below (length next-layer)
 		    collect (* (connection-weight (aref (neuron-output-weights neuron)
 							index))
@@ -168,7 +168,7 @@ of the neural network, minus the bias neuron."
 (defmethod update-input-weights ((neuron neuron) previous-layer)
   ;; The weights which need to be updated are on the connections
   ;; of the previous layer's containers
-  (loop for previous-neuron being the elements of previous-layer
+  (loop for previous-neuron across previous-layer
      for old-delta-weight = (connection-delta-weight
 			     (aref (neuron-output-weights previous-neuron)
 				   (neuron-index neuron)))
@@ -196,7 +196,7 @@ of the neural network, minus the bias neuron."
   (setf (ann-error net)
 	(let ((sum-of-squared-deltas
 	       (reduce #'+
-		       (loop for neuron being the elements of (get-ann-last-layer net)
+		       (loop for neuron across (get-ann-last-layer net)
 			  for target in target-values
 			  collect (let ((delta (- target (neuron-output neuron))))
 				    (* delta delta))))))
@@ -209,7 +209,7 @@ of the neural network, minus the bias neuron."
 		 (ann-error net)))
 	   (1+ (ann-recent-avg-smth-factor net))))
   ;; Calculate output layer gradients
-  (loop for neuron being the elements of (get-ann-last-layer net)
+  (loop for neuron across (get-ann-last-layer net)
      for target in target-values
      do (setf (neuron-gradient neuron)
 	      (calculate-output-gradient neuron target)))
@@ -217,14 +217,14 @@ of the neural network, minus the bias neuron."
   ;; Reverse iteration from rightmost hidden layer to first hidden layer
   (loop for layer-index from (- (get-ann-number-of-layers net) 2) downto 1
      for next-layer-index = (1+ layer-index)
-     do (loop for neuron being the elements of (get-ann-layer net layer-index)
+     do (loop for neuron across (get-ann-layer net layer-index)
 	   do (setf (neuron-gradient neuron)
 		    (calculate-hidden-gradient neuron
 					       (get-ann-layer net next-layer-index)))))
   ;; Update connection weights for hidden layers
   (loop for layer-index from (1- (get-ann-number-of-layers net)) downto 1
      for previous-layer-index = (1- layer-index)
-     do (loop for neuron being the elements of (get-ann-layer net layer-index)
+     do (loop for neuron across (get-ann-layer net layer-index)
 	   do (update-input-weights neuron (get-ann-layer net previous-layer-index)))))
 
 
@@ -235,7 +235,7 @@ of the neural network, minus the bias neuron."
 (defmethod collect-results ((net ann))
   "Collects the result of the last operation on the neural network.
 Returns a list containing all the results but the bias."
-  (butlast (loop for neuron being the elements of (get-ann-last-layer net)
+  (butlast (loop for neuron across (get-ann-last-layer net)
 	      collect (neuron-output neuron))))
 
 
