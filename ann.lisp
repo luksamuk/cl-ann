@@ -1,6 +1,6 @@
 ;;;; ann.lisp
 
-(in-package #:ann)
+(in-package #:cl-ann)
 
 ;; A connection specifies weights between neurons
 ;; of different layers

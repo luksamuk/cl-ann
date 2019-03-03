@@ -24,10 +24,17 @@ This project is distributed under the MIT License.
 
 -----
 
+Installation
+
+One will be able to install cl-ann by means of Quicklisp + Ultralisp. See ultralisp.org
+for more details.
+
+-----
+
 Here is a small documentation for the meaningful parts of this project:
 
 
-* package "ann"
+* package "cl-ann"
 This is the core package of the system. Contains the whole implementation of the
 artificial neural network.
 
@@ -96,7 +103,7 @@ the function will yield information regarding execution time, CPU usage and etc.
 
 
 
-* package "ann-test"
+* package "cl-ann/test"
 This package contains tests for the overall artificial neural network implementation.
 
 

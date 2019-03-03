@@ -1,6 +1,6 @@
 ;;;; package.lisp
 
-(defpackage #:ann
+(defpackage #:cl-ann
   (:use #:cl)
   (:export :*neuron-eta*
 	   :*neuron-alpha*
@@ -13,7 +13,7 @@
 	   :collect-results
 	   :run-training))
 
-(defpackage #:ann-test
+(defpackage #:cl-ann/test
   (:use #:cl #:ann)
   (:export :*xor-ann*
 	   :xor-begin

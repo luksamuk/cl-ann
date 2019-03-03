@@ -1,6 +1,6 @@
 ;;;; ann-test.lisp
 
-(in-package #:ann-test)
+(in-package #:cl-ann/test)
 
 ;;; ================
 
