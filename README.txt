@@ -31,8 +31,15 @@ for more details.
 
 After installing Quicklisp and Ultralisp, one may use the following to test the project:
 
-	(ql:quickload :cl-ann/test)
-	(cl-ann/test:
+	(ql:quickload :cl-ann)
+	(cl-ann/test:xor-run-test)
+
+-----
+
+TODO list
+
+  - Make the system more flexible in terms of used variables
+  - Make XOR test more contained
 
 -----
 
