@@ -4,26 +4,27 @@
 
 ;;; ================
 
-;;; The following test is for building a neural network which can accurately perform
-;;; the XOR operation.
-;;; From my previous calculations on another implementations, about 20,000 iterations
-;;; of tests using random data should be enough.
+;;; The following test is for building a neural network which can accurately
+;;; perform the XOR operation.
+;;; From my previous calculations on another implementations, about 20,000
+;;;  iterations of tests using random data should be enough.
 
 ;;; For any test, we need to
 ;;; a) Effectively build our neural network;
 ;;; b) Create test data, be it random or not.
-;;;    Test data consists of two lists, of input and target values, where the first
-;;;    has sublists with the same amount of input neurons (less the bias neuron), and
-;;;    the second has the same amount of output neurons (less the bias neuron as well);
-;;; c) Train the network, using the generated test data, by feeding-forward the input
-;;;    test cases and back-propagating the expected target values;
-;;; d) We then run a few test cases on our own, specially treating the output so that
-;;;    we can present a better interface to the user; and finally
-;;; e) We put the generated test network at the user's disposition by using some kind
-;;;    of interface for that. Here, I figured it would be better to do this by exposing
-;;;    the symbols holding the test networks, since I know that, if you're programming
-;;;    in Lisp, you probably already know what you're doing, so I don't have to
-;;;    underestimate you with any weird encapsulation.
+;;;    Test data consists of two lists, of input and target values, where the
+;;;    first has sublists with the same amount of input neurons (less the bias
+;;;    neuron), and the second has the same amount of output neurons (less the
+;;;    bias neuron as well);
+;;; c) Train the network, using the generated test data, by feeding-forward the
+;;;    input test cases and back-propagating the expected target values;
+;;; d) We then run a few test cases on our own, specially treating the output so
+;;;    that we can present a better interface to the user; and finally
+;;; e) We put the generated test network at the user's disposition by using some
+;;;    kind of interface for that. Here, I figured it would be better to do this
+;;;    by exposing the symbols holding the test networks, since I know that, if
+;;;    you're programming in Lisp, you probably already know what you're doing,
+;;;    so I don't have to underestimate you with any weird encapsulation.
 
 ;;; Test networks
 (defparameter *xor-ann* nil
