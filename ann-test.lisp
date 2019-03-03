@@ -38,7 +38,7 @@ learns to recognize the pattern of an exclusive-or binary operation.")
   ;; The XOR neural net uses a topology of two input neurons,
   ;; one hidden layer with four neurons, and a single output.
   (format t "Creating the neural network~&")
-  (setf *xor-ann* (ann:build-ann '(2 4 1)))
+  (setf *xor-ann* (build-ann '(2 4 1)))
   ;; Generate test cases
   (format t "Generating test cases~&")
   (setf *xor-test-cases* (list nil nil))
@@ -69,10 +69,10 @@ learns to recognize the pattern of an exclusive-or binary operation.")
   (when (and *xor-ann* *xor-test-cases*)
     (format t "Training the network using ~a test cases~&"
 	    (list-length (cadr *xor-test-cases*)))
-    (ann:run-training *xor-ann*
-		      (car *xor-test-cases*)
-		      (cadr *xor-test-cases*)
-		      show-input)
+    (run-training *xor-ann*
+		  (car *xor-test-cases*)
+		  (cadr *xor-test-cases*)
+		  show-input)
     (setf *xor-test-cases* nil)))
 
 (defun xor-finish ()
@@ -86,23 +86,23 @@ learns to recognize the pattern of an exclusive-or binary operation.")
 		     ((<= value 0.75)  "probably true")
 		     (t                "certainly true"))))
       (format t "Interpreting results for common operations:~&")
-      (ann:feed-forward *xor-ann* '(0.0 0.0))
-      (let ((result (car (ann:collect-results *xor-ann*))))
+      (feed-forward *xor-ann* '(0.0 0.0))
+      (let ((result (car (collect-results *xor-ann*))))
 	(format t "(0.0 0.0) => ~a ~a~&"
 		(interpret-result result)
 		result))
-      (ann:feed-forward *xor-ann* '(1.0 0.0))
-      (let ((result (car (ann:collect-results *xor-ann*))))
+      (feed-forward *xor-ann* '(1.0 0.0))
+      (let ((result (car (collect-results *xor-ann*))))
 	(format t "(1.0 0.0) => ~a ~a~&"
 		(interpret-result result)
 		result))
-      (ann:feed-forward *xor-ann* '(0.0 1.0))
-      (let ((result (car (ann:collect-results *xor-ann*))))
+      (feed-forward *xor-ann* '(0.0 1.0))
+      (let ((result (car (collect-results *xor-ann*))))
 	(format t "(0.0 1.0) => ~a ~a~&"
 		(interpret-result result)
 		result))
-      (ann:feed-forward *xor-ann* '(1.0 1.0))
-      (let ((result (car (ann:collect-results *xor-ann*))))
+      (feed-forward *xor-ann* '(1.0 1.0))
+      (let ((result (car (collect-results *xor-ann*))))
 	(format t "(1.0 1.0) => ~a ~a~&"
 		(interpret-result result)
 		result)))))
@@ -111,8 +111,8 @@ learns to recognize the pattern of an exclusive-or binary operation.")
   "Performs the whole test cycle on the XOR neural network at once."
   (format t "Performing artificial neural network test: learning the XOR operation.~&")
   (when *xor-ann*
-    (format t "WARNING: this will rebuild ann-test:*xor-ann*.~&"))
+    (format t "WARNING: this will rebuild cl-ann/test:*xor-ann*.~&"))
   (xor-begin)
   (xor-train show-input)
   (xor-finish)
-  (format t "Testing finished.~&Use ann-test:*xor-ann* for further experiments.~&"))
+  (format t "Testing finished.~&Use cl-ann/test:*xor-ann* for further experiments.~&"))

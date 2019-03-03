@@ -14,7 +14,7 @@
 	   :run-training))
 
 (defpackage #:cl-ann/test
-  (:use #:cl #:ann)
+  (:use #:cl #:cl-ann)
   (:export :*xor-ann*
 	   :xor-begin
 	   :xor-train

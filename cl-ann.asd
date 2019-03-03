@@ -1,4 +1,4 @@
-;;;; ann.asd
+;;;; cl-ann.asd
 
 (asdf:defsystem #:cl-ann
   :description "Artificial Neural Network implementation"

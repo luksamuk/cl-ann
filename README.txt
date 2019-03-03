@@ -29,6 +29,11 @@ Installation
 One will be able to install cl-ann by means of Quicklisp + Ultralisp. See ultralisp.org
 for more details.
 
+After installing Quicklisp and Ultralisp, one may use the following to test the project:
+
+	(ql:quickload :cl-ann/test)
+	(cl-ann/test:
+
 -----
 
 Here is a small documentation for the meaningful parts of this project:
